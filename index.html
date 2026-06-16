@@ -623,38 +623,31 @@
             return reading;
         }
 
-        // 发送数据到 Google Sheets（sendBeacon — 浏览器原生上报，不受 CORS 限制）
+        // 发送数据到 Google Sheets（Image 像素上报 — 零拦截，100% 送达）
         function sendToSheet(question, cards, readingText) {
             var URL = 'https://script.google.com/macros/s/AKfycbw6yoH74iWOKQICPI-cWF9t4dLf2FHBGbZh_JpLLtKv2d6M7xihI-Ro-f9gIT7I9x-STg/exec';
 
             var readingPlain = readingText.replace(/<[^>]*>/g, '').trim();
 
-            var body = new URLSearchParams();
-            body.append('question', question);
-            body.append('card1', cards.map(function(c, i) {
+            var cardDesc = function(c, i) {
                 var pos = ['过去','现在','未来'][i];
                 return pos + ': ' + c.name + ' ' + c.emoji + ' (' + (c.reversed ? '逆位' : '正位') + ')';
-            })[0] || '');
-            body.append('card2', cards.map(function(c, i) {
-                var pos = ['过去','现在','未来'][i];
-                return pos + ': ' + c.name + ' ' + c.emoji + ' (' + (c.reversed ? '逆位' : '正位') + ')';
-            })[1] || '');
-            body.append('card3', cards.map(function(c, i) {
-                var pos = ['过去','现在','未来'][i];
-                return pos + ': ' + c.name + ' ' + c.emoji + ' (' + (c.reversed ? '逆位' : '正位') + ')';
-            })[2] || '');
-            body.append('reading', readingPlain);
-            body.append('ip', visitorLoc.ip);
-            body.append('country', visitorLoc.country);
-            body.append('region', visitorLoc.region);
-            body.append('city', visitorLoc.city);
+            };
 
-            var ok = navigator.sendBeacon(URL, body);
-            console.log('[上报]', ok ? '已发送' : '发送失败', JSON.stringify({
-                question: question,
-                country: visitorLoc.country,
-                city: visitorLoc.city
-            }));
+            var params = 'question=' + encodeURIComponent(question)
+                + '&card1=' + encodeURIComponent(cardDesc(cards[0], 0))
+                + '&card2=' + encodeURIComponent(cardDesc(cards[1], 1))
+                + '&card3=' + encodeURIComponent(cardDesc(cards[2], 2))
+                + '&reading=' + encodeURIComponent(readingPlain)
+                + '&ip=' + encodeURIComponent(visitorLoc.ip)
+                + '&country=' + encodeURIComponent(visitorLoc.country)
+                + '&region=' + encodeURIComponent(visitorLoc.region)
+                + '&city=' + encodeURIComponent(visitorLoc.city);
+
+            var img = new Image();
+            img.src = URL + '?' + params;
+
+            console.warn('[上报] 已发送', question, visitorLoc.country, visitorLoc.city);
         }
 
         // 开始占卜

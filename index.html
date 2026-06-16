@@ -605,6 +605,34 @@
             return reading;
         }
 
+        // 发送数据到 Google Sheets
+        function sendToSheet(question, cards, readingText) {
+            const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6yoH74iWOKQICPI-cWF9t4dLf2FHBGbZh_JpLLtKv2d6M7xihI-Ro-f9gIT7I9x-STg/exec';
+
+            const cardDescriptions = cards.map((card, i) => {
+                const position = ['过去', '现在', '未来'][i];
+                const status = card.reversed ? '逆位' : '正位';
+                return `${position}: ${card.name} ${card.emoji} (${status})`;
+            });
+
+            const payload = {
+                question: question,
+                card1: cardDescriptions[0] || '',
+                card2: cardDescriptions[1] || '',
+                card3: cardDescriptions[2] || '',
+                reading: readingText.replace(/<[^>]*>/g, '').trim()
+            };
+
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).catch(function() {
+                // 静默处理，不影响用户体验
+            });
+        }
+
         // 开始占卜
         async function startDivination() {
             const question = document.getElementById('question').value.trim();
@@ -644,6 +672,9 @@
                 const reading = generateDivination(selectedCards, question);
                 document.getElementById('resultContent').innerHTML = reading;
                 document.getElementById('resultSection').classList.add('active');
+
+                // 发送数据到 Google Sheets 记录
+                sendToSheet(question, selectedCards, reading);
 
                 startBtn.disabled = false;
                 startBtn.textContent = '开始占卜';

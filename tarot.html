@@ -448,21 +448,6 @@
         </div>
     </div>
 
-    <!-- 隐藏表单，用于向 Google Sheets 提交数据 -->
-    <iframe name="dataFrame" style="display:none;"></iframe>
-    <form id="dataForm" method="POST" target="dataFrame" style="display:none;"
-          action="https://script.google.com/macros/s/AKfycbw6yoH74iWOKQICPI-cWF9t4dLf2FHBGbZh_JpLLtKv2d6M7xihI-Ro-f9gIT7I9x-STg/exec">
-        <input type="hidden" name="question">
-        <input type="hidden" name="card1">
-        <input type="hidden" name="card2">
-        <input type="hidden" name="card3">
-        <input type="hidden" name="reading">
-        <input type="hidden" name="ip">
-        <input type="hidden" name="country">
-        <input type="hidden" name="region">
-        <input type="hidden" name="city">
-    </form>
-
     <script>
         // 塔罗牌数据库
         const TAROT_DECK = [
@@ -621,9 +606,9 @@
             return reading;
         }
 
-        // 发送数据到 Google Sheets（通过表单提交，避开 CORS 限制）
+        // 发送数据到 Google Sheets（URL-encoded POST，绕过 CORS 预检）
         function sendToSheet(question, cards, readingText) {
-            var form = document.getElementById('dataForm');
+            var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6yoH74iWOKQICPI-cWF9t4dLf2FHBGbZh_JpLLtKv2d6M7xihI-Ro-f9gIT7I9x-STg/exec';
 
             var cardDescriptions = cards.map(function(card, i) {
                 var position = ['过去', '现在', '未来'][i];
@@ -633,17 +618,29 @@
 
             var readingPlain = readingText.replace(/<[^>]*>/g, '').trim();
 
-            form.question.value = question;
-            form.card1.value = cardDescriptions[0] || '';
-            form.card2.value = cardDescriptions[1] || '';
-            form.card3.value = cardDescriptions[2] || '';
-            form.reading.value = readingPlain;
-            form.ip.value = visitorLocation.ip;
-            form.country.value = visitorLocation.country;
-            form.region.value = visitorLocation.region;
-            form.city.value = visitorLocation.city;
+            var params = [
+                'question=' + encodeURIComponent(question),
+                'card1=' + encodeURIComponent(cardDescriptions[0] || ''),
+                'card2=' + encodeURIComponent(cardDescriptions[1] || ''),
+                'card3=' + encodeURIComponent(cardDescriptions[2] || ''),
+                'reading=' + encodeURIComponent(readingPlain),
+                'ip=' + encodeURIComponent(visitorLocation.ip),
+                'country=' + encodeURIComponent(visitorLocation.country),
+                'region=' + encodeURIComponent(visitorLocation.region),
+                'city=' + encodeURIComponent(visitorLocation.city)
+            ].join('&');
 
-            form.submit();
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: params
+            }).then(function(response) {
+                return response.text();
+            }).then(function(text) {
+                console.log('数据已记录:', text);
+            }).catch(function(err) {
+                console.log('记录失败:', err.message);
+            });
         }
 
         // 开始占卜

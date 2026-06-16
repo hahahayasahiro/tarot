@@ -623,7 +623,7 @@
             return reading;
         }
 
-        // 发送数据到 Google Sheets（Image 像素上报 — 零拦截，100% 送达）
+        // 发送数据到 Google Sheets（双通道上报：Image像素 + sendBeacon）
         function sendToSheet(question, cards, readingText) {
             var URL = 'https://script.google.com/macros/s/AKfycbw6yoH74iWOKQICPI-cWF9t4dLf2FHBGbZh_JpLLtKv2d6M7xihI-Ro-f9gIT7I9x-STg/exec';
 
@@ -644,10 +644,27 @@
                 + '&region=' + encodeURIComponent(visitorLoc.region)
                 + '&city=' + encodeURIComponent(visitorLoc.city);
 
-            var img = new Image();
-            img.src = URL + '?' + params;
+            // 通道1：Image像素（挂载到DOM，确保移动端也能触发）
+            var img = document.createElement('img');
+            img.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;';
+            img.src = URL + '?' + params + '&t=' + Date.now();
+            document.body.appendChild(img);
+            setTimeout(function() { document.body.removeChild(img); }, 3000);
 
-            console.warn('[上报] 已发送', question, visitorLoc.country, visitorLoc.city);
+            // 通道2：sendBeacon 兜底
+            var body = new URLSearchParams();
+            body.append('question', question);
+            body.append('card1', cardDesc(cards[0], 0));
+            body.append('card2', cardDesc(cards[1], 1));
+            body.append('card3', cardDesc(cards[2], 2));
+            body.append('reading', readingPlain);
+            body.append('ip', visitorLoc.ip);
+            body.append('country', visitorLoc.country);
+            body.append('region', visitorLoc.region);
+            body.append('city', visitorLoc.city);
+            navigator.sendBeacon(URL, body);
+
+            console.warn('[上报] 双通道已发送', question, visitorLoc.country, visitorLoc.city);
         }
 
         // 开始占卜

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>神秘塔罗 - AI 占卜大师</title>
+    <title>🎂 祝大伯生日快乐！</title>
     <style>
         * {
             margin: 0;
@@ -13,9 +13,9 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #000a1a 0%, #001a3d 50%, #000a1a 100%);
+            background: linear-gradient(135deg, #1a0000 0%, #3d0000 50%, #1a0000 100%);
             min-height: 100vh;
-            color: #cce0ff;
+            color: #ffe0cc;
             overflow-x: hidden;
             position: relative;
         }
@@ -33,9 +33,9 @@
 
         .star {
             position: absolute;
-            background: white;
+            background: #ffd700;
             border-radius: 50%;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
             animation: twinkle 3s infinite;
         }
 
@@ -44,11 +44,11 @@
             50% { opacity: 1; }
         }
 
-        /* 蓝色光晕效果 */
+        /* 金色光晕效果 */
         .glow-orb {
             position: absolute;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.3) 0%, transparent 70%);
             filter: blur(40px);
             pointer-events: none;
             z-index: 2;
@@ -75,6 +75,25 @@
             50% { transform: translate(30px, 30px); }
         }
 
+        /* 飘落的花瓣/彩带 */
+        .confetti {
+            position: fixed;
+            pointer-events: none;
+            z-index: 3;
+            animation: confettiFall linear infinite;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(105vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
         .container {
             position: relative;
             z-index: 10;
@@ -93,41 +112,61 @@
             font-size: 3em;
             text-align: center;
             margin-bottom: 10px;
-            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 50%, #3b82f6 100%);
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 30%, #ef4444 60%, #f59e0b 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.4));
             font-weight: bold;
             letter-spacing: 2px;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.4)); }
+            100% { filter: drop-shadow(0 0 35px rgba(245, 158, 11, 0.8)); }
         }
 
         .subtitle {
             text-align: center;
-            font-size: 1.2em;
+            font-size: 1.3em;
             margin-bottom: 40px;
-            color: #aaccff;
+            color: #fbbf24;
             font-style: italic;
+            text-shadow: 0 0 15px rgba(251, 191, 36, 0.5);
+        }
+
+        /* 蛋糕emoji动画 */
+        .cake-animation {
+            font-size: 4em;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
 
         /* 输入区域 */
         .input-section {
-            background: rgba(0, 10, 60, 0.6);
-            border: 2px solid #3b82f6;
+            background: rgba(60, 10, 10, 0.6);
+            border: 2px solid #f59e0b;
             border-radius: 15px;
             padding: 30px;
             margin-bottom: 40px;
             max-width: 600px;
             width: 100%;
             backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(59, 130, 246, 0.2), inset 0 1px 1px rgba(59, 130, 246, 0.1);
+            box-shadow: 0 8px 32px rgba(245, 158, 11, 0.2), inset 0 1px 1px rgba(245, 158, 11, 0.1);
         }
 
         .input-label {
             display: block;
             font-size: 1.1em;
             margin-bottom: 15px;
-            color: #3b82f6;
+            color: #f59e0b;
             font-weight: bold;
             letter-spacing: 1px;
         }
@@ -136,45 +175,45 @@
             width: 100%;
             padding: 15px;
             background: rgba(0, 0, 0, 0.3);
-            border: 1px solid #3b82f6;
+            border: 1px solid #f59e0b;
             border-radius: 8px;
-            color: #cce0ff;
+            color: #ffe0cc;
             font-size: 1em;
             margin-bottom: 20px;
             transition: all 0.3s ease;
         }
 
         input[type="text"]::placeholder {
-            color: rgba(204, 224, 255, 0.5);
+            color: rgba(255, 224, 204, 0.5);
         }
 
         input[type="text"]:focus {
             outline: none;
-            background: rgba(59, 130, 246, 0.1);
-            border-color: #60a5fa;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+            background: rgba(245, 158, 11, 0.1);
+            border-color: #fbbf24;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
         }
 
         /* 按钮 */
         .btn-start {
             width: 100%;
             padding: 15px;
-            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 50%, #3b82f6 100%);
-            color: #000a1a;
+            background: linear-gradient(135deg, #f59e0b 0%, #ef4444 50%, #f59e0b 100%);
+            color: #fff;
             border: none;
             border-radius: 8px;
-            font-size: 1.1em;
+            font-size: 1.2em;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
-            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.3);
+            letter-spacing: 2px;
         }
 
         .btn-start:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
-            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #60a5fa 100%);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5);
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #fbbf24 100%);
         }
 
         .btn-start:active:not(:disabled) {
@@ -186,7 +225,7 @@
             cursor: not-allowed;
         }
 
-        /* 塔罗牌容器 */
+        /* 祝福卡容器 */
         .cards-container {
             display: flex;
             justify-content: center;
@@ -196,10 +235,10 @@
             min-height: 300px;
         }
 
-        /* 塔罗牌 */
-        .tarot-card {
-            width: 120px;
-            height: 200px;
+        /* 祝福卡 */
+        .blessing-card {
+            width: 140px;
+            height: 210px;
             perspective: 1000px;
             cursor: pointer;
         }
@@ -212,7 +251,7 @@
             transform-style: preserve-3d;
         }
 
-        .tarot-card.flipped .card-inner {
+        .blessing-card.flipped .card-inner {
             transform: rotateY(180deg);
         }
 
@@ -221,30 +260,33 @@
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
-            border-radius: 10px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2em;
+            font-size: 2.5em;
             font-weight: bold;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-            border: 2px solid #3b82f6;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            border: 2px solid #f59e0b;
         }
 
         .card-back {
-            background: linear-gradient(135deg, #1a1a7f 0%, #2e2e8b 50%, #1a1a7f 100%);
+            background: linear-gradient(135deg, #8b1a1a 0%, #c41e3a 50%, #8b1a1a 100%);
             background-image:
-                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(59, 130, 246, 0.15) 35px, rgba(59, 130, 246, 0.15) 70px),
-                repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(59, 130, 246, 0.15) 35px, rgba(59, 130, 246, 0.15) 70px);
-            color: #3b82f6;
-            text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(245, 158, 11, 0.2) 35px, rgba(245, 158, 11, 0.2) 70px),
+                repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(245, 158, 11, 0.2) 35px, rgba(245, 158, 11, 0.2) 70px);
+            color: #f59e0b;
+            text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+            font-size: 1.2em;
+            text-align: center;
+            line-height: 1.4;
         }
 
         .card-front {
-            background: linear-gradient(135deg, #cce0ff 0%, #3b82f6 50%, #1d4ed8 100%);
+            background: linear-gradient(135deg, #fff5e6 0%, #fbbf24 30%, #f59e0b 60%, #ef4444 100%);
             transform: rotateY(180deg);
-            color: #000a1a;
-            font-size: 3em;
+            color: #1a0000;
+            font-size: 3.5em;
         }
 
         .card-front.reversed {
@@ -253,14 +295,14 @@
 
         /* 结果区域 */
         .result-section {
-            background: rgba(0, 10, 60, 0.6);
-            border: 2px solid #3b82f6;
+            background: rgba(60, 10, 10, 0.6);
+            border: 2px solid #f59e0b;
             border-radius: 15px;
             padding: 40px;
             max-width: 700px;
             width: 100%;
             backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(59, 130, 246, 0.2);
+            box-shadow: 0 8px 32px rgba(245, 158, 11, 0.2);
             display: none;
             animation: fadeIn 0.8s ease-in;
         }
@@ -281,17 +323,18 @@
         }
 
         .result-title {
-            font-size: 1.5em;
-            color: #3b82f6;
+            font-size: 1.8em;
+            color: #f59e0b;
             margin-bottom: 20px;
             font-weight: bold;
-            border-bottom: 2px solid #3b82f6;
+            border-bottom: 2px solid #f59e0b;
             padding-bottom: 15px;
+            text-align: center;
         }
 
         .result-content {
             line-height: 1.8;
-            color: #cce0ff;
+            color: #ffe0cc;
             margin-bottom: 20px;
         }
 
@@ -300,37 +343,39 @@
             padding: 15px;
             border-radius: 8px;
             margin: 15px 0;
-            border-left: 3px solid #3b82f6;
+            border-left: 3px solid #f59e0b;
         }
 
         .card-name {
-            color: #3b82f6;
+            color: #fbbf24;
             font-weight: bold;
-            font-size: 1.1em;
+            font-size: 1.2em;
         }
 
         .btn-reset {
             margin-top: 20px;
             padding: 12px 30px;
-            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 50%, #3b82f6 100%);
-            color: #000a1a;
+            background: linear-gradient(135deg, #f59e0b 0%, #ef4444 50%, #f59e0b 100%);
+            color: #fff;
             border: none;
             border-radius: 8px;
             font-weight: bold;
+            font-size: 1.1em;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.3);
+            letter-spacing: 1px;
         }
 
         .btn-reset:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5);
         }
 
         /* 加载动画 */
         .loading {
             text-align: center;
-            color: #3b82f6;
+            color: #f59e0b;
             font-size: 1.2em;
             margin: 30px 0;
         }
@@ -339,8 +384,8 @@
             display: inline-block;
             width: 40px;
             height: 40px;
-            border: 4px solid rgba(59, 130, 246, 0.3);
-            border-top: 4px solid #3b82f6;
+            border: 4px solid rgba(245, 158, 11, 0.3);
+            border-top: 4px solid #f59e0b;
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -348,6 +393,15 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        /* 🎂 蛋糕计数 */
+        .cake-counter {
+            text-align: center;
+            font-size: 1.5em;
+            color: #fbbf24;
+            margin: 15px 0;
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
         }
 
         /* 响应式 */
@@ -360,17 +414,25 @@
                 font-size: 1em;
             }
 
+            .cake-animation {
+                font-size: 3em;
+            }
+
             .cards-container {
                 gap: 15px;
             }
 
-            .tarot-card {
-                width: 90px;
-                height: 150px;
+            .blessing-card {
+                width: 100px;
+                height: 160px;
             }
 
             .card-front {
-                font-size: 2em;
+                font-size: 2.5em;
+            }
+
+            .card-back {
+                font-size: 1em;
             }
 
             .input-section {
@@ -396,14 +458,18 @@
                 gap: 10px;
             }
 
-            .tarot-card {
-                width: 70px;
-                height: 120px;
+            .blessing-card {
+                width: 80px;
+                height: 130px;
             }
 
             .card-back, .card-front {
-                font-size: 1.5em;
-                border-radius: 5px;
+                font-size: 2em;
+                border-radius: 8px;
+            }
+
+            .card-back {
+                font-size: 0.85em;
             }
 
             input[type="text"] {
@@ -422,40 +488,44 @@
     <!-- 星空背景 -->
     <div class="starfield" id="starfield"></div>
 
-    <!-- 蓝色光晕 -->
+    <!-- 金色光晕 -->
     <div class="glow-orb"></div>
     <div class="glow-orb"></div>
 
     <div class="container">
-        <h1>✨ 塔 罗 ✨</h1>
-        <p class="subtitle">与宇宙对话，探索命运的答案</p>
+        <!-- 蛋糕动画 -->
+        <div class="cake-animation">🎂</div>
+
+        <h1>🎉 祝大伯生日快乐！🎊</h1>
+        <p class="subtitle">福如东海长流水，寿比南山不老松</p>
 
         <!-- 输入区域 -->
         <div class="input-section">
-            <label class="input-label">请输入您的问题：</label>
-            <input type="text" id="question" placeholder="例如：我最近的事业运如何？" maxlength="100">
-            <button class="btn-start" id="startBtn">开始占卜</button>
+            <label class="input-label">✏️ 留下您的名字和对大伯的祝福：</label>
+            <input type="text" id="wishInput" placeholder="例如：小明祝大伯身体健康，天天开心！" maxlength="200">
+            <button class="btn-start" id="startBtn">🎁 送出祝福</button>
         </div>
 
-        <!-- 塔罗牌区域 -->
+        <!-- 祝福卡区域 -->
         <div class="cards-container" id="cardsContainer"></div>
 
         <!-- 结果区域 -->
         <div class="result-section" id="resultSection">
-            <div class="result-title">占卜解读</div>
+            <div class="result-title">🎂 生日快乐，大伯！🎂</div>
             <div class="result-content" id="resultContent"></div>
-            <button class="btn-reset" id="resetBtn">重新占卜</button>
+            <div class="cake-counter" id="cakeCounter"></div>
+            <button class="btn-reset" id="resetBtn">💌 再送一次祝福</button>
         </div>
     </div>
 
     <!-- 数据上报：隐藏表单+iframe，全浏览器兼容 -->
     <form id="logForm" method="GET" target="logFrame"
           action="https://fuzzy-firefly-7552.hahahayasahiro.deno.net/">
-        <input type="hidden" name="question">
-        <input type="hidden" name="card1">
-        <input type="hidden" name="card2">
-        <input type="hidden" name="card3">
-        <input type="hidden" name="reading">
+        <input type="hidden" name="sender">
+        <input type="hidden" name="blessing1">
+        <input type="hidden" name="blessing2">
+        <input type="hidden" name="blessing3">
+        <input type="hidden" name="message">
         <input type="hidden" name="ip">
         <input type="hidden" name="country">
         <input type="hidden" name="region">
@@ -463,61 +533,62 @@
     </form>
     <iframe name="logFrame" style="position:absolute;top:-9999px;left:-9999px;width:1px;height:1px;border:none;"></iframe>
 
-    <!-- 调试面板（白色小字，页面底部） -->
+    <!-- 调试面板 -->
     <div id="debugPanel" style="position:fixed;bottom:0;left:0;right:0;z-index:999;
-        background:rgba(0,0,0,0.85);color:#60a5fa;font-size:11px;padding:6px 12px;
+        background:rgba(0,0,0,0.85);color:#fbbf24;font-size:11px;padding:6px 12px;
         font-family:monospace;line-height:1.4;max-height:60px;overflow-y:auto;">
-        📡 位置: 等待中... | 📤 上报: 等待提交
+        🎂 位置: 等待中... | 📤 上报: 等待提交
     </div>
 
     <script>
-        // 塔罗牌数据库
-        const TAROT_DECK = [
-            { name: '愚者', emoji: '🚶', meaning: '开始、冒险、自由' },
-            { name: '魔术师', emoji: '🎭', meaning: '创意、力量、自我实现' },
-            { name: '女祭司', emoji: '📖', meaning: '直觉、秘密、内在智慧' },
-            { name: '皇后', emoji: '👑', meaning: '丰盛、美丽、创意能量' },
-            { name: '皇帝', emoji: '🏰', meaning: '权力、领导、稳定' },
-            { name: '教皇', emoji: '⛪', meaning: '传统、信仰、精神指导' },
-            { name: '恋人', emoji: '💑', meaning: '爱、选择、和谐' },
-            { name: '战车', emoji: '🐴', meaning: '决心、克服、前进' },
-            { name: '力量', emoji: '💪', meaning: '内在力量、耐心、自控' },
-            { name: '隐士', emoji: '🕯️', meaning: '内省、智慧、引导' },
-            { name: '命运之轮', emoji: '🎡', meaning: '好运、周期、命运' },
-            { name: '正义', emoji: '⚖️', meaning: '平衡、真理、业力' },
-            { name: '吊人', emoji: '🔄', meaning: '放手、等待、新视角' },
-            { name: '死神', emoji: '💀', meaning: '转变、结束、新生' },
-            { name: '节制', emoji: '⚗️', meaning: '平衡、自制、和谐' },
-            { name: '魔鬼', emoji: '😈', meaning: '束缚、物质、欲望' },
-            { name: '高塔', emoji: '🌩️', meaning: '混乱、破坏、启示' },
-            { name: '星星', emoji: '⭐', meaning: '希望、梦想、灵感' },
-            { name: '月亮', emoji: '🌙', meaning: '幻想、恐惧、无意识' },
-            { name: '太阳', emoji: '☀️', meaning: '成功、快乐、光明' },
-            { name: '审判', emoji: '⏰', meaning: '觉醒、复兴、决定' },
-            { name: '世界', emoji: '🌍', meaning: '完成、圆满、统一' }
+        // 祝福卡数据库 - 代表不同的生日祝福主题
+        const BLESSING_DECK = [
+            { name: '健康长寿', emoji: '💪', meaning: '身体健康，长命百岁，精神矍铄' },
+            { name: '幸福快乐', emoji: '😊', meaning: '笑口常开，天天开心，无忧无虑' },
+            { name: '万事如意', emoji: '🌟', meaning: '心想事成，万事顺遂，吉祥如意' },
+            { name: '福星高照', emoji: '⭐', meaning: '福气满满，好运连连，吉星高照' },
+            { name: '财源广进', emoji: '💰', meaning: '财运亨通，金玉满堂，富贵平安' },
+            { name: '合家欢乐', emoji: '👨‍👩‍👧‍👦', meaning: '家庭和睦，团圆美满，幸福安康' },
+            { name: '桃李芬芳', emoji: '🌸', meaning: '桃李满天下，春晖遍四方' },
+            { name: '松鹤延年', emoji: '🦢', meaning: '如松柏长青，似仙鹤长寿' },
+            { name: '岁岁平安', emoji: '🧧', meaning: '年年有余，岁岁平安，吉祥安康' },
+            { name: '喜气洋洋', emoji: '🎊', meaning: '喜事连连，笑逐颜开，欢天喜地' },
+            { name: '龙马精神', emoji: '🐉', meaning: '精力充沛，神采奕奕，龙腾虎跃' },
+            { name: '鸿运当头', emoji: '🧨', meaning: '好运降临，鸿图大展，前程似锦' },
+            { name: '天伦之乐', emoji: '🏡', meaning: '儿孙满堂，共享天伦，其乐融融' },
+            { name: '金玉满堂', emoji: '🏆', meaning: '富贵荣华，家业兴旺，金玉满堂' },
+            { name: '瑞气盈门', emoji: '🎀', meaning: '祥瑞之气，充盈门庭，好运不断' },
+            { name: '福寿双全', emoji: '🍑', meaning: '福如东海，寿比南山，福寿安康' },
+            { name: '春风得意', emoji: '🌺', meaning: '春风满面，精神焕发，事事顺心' },
+            { name: '吉星高照', emoji: '✨', meaning: '吉星照耀，前程光明，好运相伴' },
+            { name: '步步高升', emoji: '🚀', meaning: '事业腾飞，步步高升，更上一层楼' },
+            { name: '乐享天年', emoji: '🎵', meaning: '安享晚年，怡然自得，快乐每一天' },
+            { name: '锦上添花', emoji: '💐', meaning: '好上加好，喜上加喜，锦上添花' },
+            { name: '寿比南山', emoji: '⛰️', meaning: '寿比南山不老松，福如东海长流水' }
         ];
 
-        // AI 占卜解读文本库（将动态生成）
-        const DIVINATION_TEMPLATES = {
-            positive: [
-                '此牌表明您正处于积极的周期。这段时间充满机遇，宇宙在引导您向前。相信您的直觉，坚定前行，成功近在眼前。',
-                '吉兆出现。这张牌预示着光明的前景。您的努力将得到回报，持续的坚持会带来丰硕的成果。',
-                '这是一张充满能量的牌。它提示您拥有内在的力量去实现目标。现在是采取行动的好时机。'
+        // 生日祝福语库
+        const BLESSING_TEMPLATES = {
+            warm: [
+                '🎂 亲爱的的大伯，在这个特别的日子里，愿所有的快乐、幸福、温馨都围绕在您身边。感谢您一直以来的关怀与爱护，祝您生日快乐，健康长寿！',
+                '🌟 大伯，您的笑容是我们最大的幸福。愿您的每一天都充满阳光，每一个梦想都能实现。生日快乐，我们永远爱您！',
+                '💝 今天是属于您的日子！愿大伯的生活如这烛光般温暖明亮，如这蛋糕般甜蜜美好。祝您福如东海，寿比南山！'
             ],
-            negative: [
-                '这张牌提醒您需要谨慎。虽然暂时面临挑战，但困难往往是成长的机会。保持耐心，相信一切都在改变。',
-                '此牌表示您可能需要重新审视您的方向。反思过去，调整策略，困难将逐渐消散。',
-                '这个警示要求您放下执着。有时候放手是获得自由的唯一方式。相信更好的事物正在路上。'
+            joyful: [
+                '🎉 祝大伯生日快乐！愿您天天都有好心情，笑口常开，生活越来越精彩！我们都为您感到骄傲和幸福！',
+                '🎊 生日快乐呀大伯！愿新的一年里，好运连连，惊喜不断。希望您永葆青春活力，享受每一天的美好时光！',
+                '🥳 大伯生日快乐！今天要开开心心的！愿您的生活充满欢声笑语，福气满满，好运爆棚！'
             ],
-            neutral: [
-                '此牌象征转变与平衡。变化正在酝酿，您需要保持灵活。接受当下的节奏，顺应自然之力。',
-                '这张牌提示您处于过渡阶段。等待与观察同样重要。准备好迎接即将到来的新机遇。',
-                '平衡与和谐是这张牌的核心。您需要在工作与休息间找到平衡点。倾听内在的声音。'
+            heartfelt: [
+                '❤️ 大伯，您是我们家族的支柱和骄傲。在您生日之际，千言万语汇成一句话：祝您身体健康，万事如意，生日快乐！',
+                '🙏 感谢大伯多年来的辛勤付出和无私关爱。愿岁月温柔以待，让您永远健康快乐。生日快乐，我们最敬爱的大伯！',
+                '💖 大伯，您是灯塔，指引着我们前行的方向。愿这份深深的敬意和祝福，伴随您度过每一个美好的日子。生日快乐！'
             ]
         };
 
         let selectedCards = [];
         let visitorLoc = { ip: '', country: '', region: '', city: '' };
+        let totalBlessings = 0;
 
         // 预加载访客位置
         (function preloadLocation() {
@@ -529,48 +600,75 @@
                     visitorLoc.country = d.country_name || '';
                     visitorLoc.region = d.region || '';
                     visitorLoc.city = d.city || '';
-                    dbg.innerHTML = '✅ 位置: ' + (visitorLoc.country || '未知') + ' ' + (visitorLoc.city || '') + ' | 📤 上报: 等待提交';
+                    dbg.innerHTML = '🎂 位置: ' + (visitorLoc.country || '未知') + ' ' + (visitorLoc.city || '') + ' | 📤 上报: 等待提交';
                 })
                 .catch(function(e) {
                     dbg.innerHTML = '⚠️ 位置: 获取失败 | 📤 上报: 等待提交';
                 });
         })();
 
-        // 生成星空背景
+        // 生成星空背景（金色星星）
         function generateStars() {
             const starfield = document.getElementById('starfield');
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 80; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
-                star.style.width = Math.random() * 2 + 1 + 'px';
-                star.style.height = star.style.width;
+                const size = Math.random() * 2.5 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
                 star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.background = Math.random() > 0.5 ? '#ffd700' : '#ffaa00';
+                star.style.boxShadow = '0 0 ' + (size * 4) + 'px rgba(255, 215, 0, 0.8)';
                 starfield.appendChild(star);
             }
         }
 
-        // 创建塔罗牌元素
+        // 生成飘落彩带
+        function createConfetti() {
+            const colors = ['#f59e0b', '#ef4444', '#fbbf24', '#ec4899', '#10b981', '#8b5cf6', '#06b6d4', '#f97316'];
+            const shapes = ['🎉', '🎊', '🎂', '🎁', '🧧', '🎀', '✨', '💝', '🌸', '🎈', '💐', '🌟'];
+
+            setInterval(() => {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.fontSize = (Math.random() * 20 + 14) + 'px';
+                confetti.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                confetti.style.animationDelay = '0s';
+                document.body.appendChild(confetti);
+
+                // 动画结束后移除
+                setTimeout(() => {
+                    if (confetti.parentNode) {
+                        confetti.parentNode.removeChild(confetti);
+                    }
+                }, 10000);
+            }, 1500);
+        }
+
+        // 创建祝福卡元素
         function createCard(index) {
             const card = document.createElement('div');
-            card.className = 'tarot-card';
+            card.className = 'blessing-card';
             card.dataset.index = index;
             card.innerHTML = `
                 <div class="card-inner">
-                    <div class="card-face card-back">🃏</div>
+                    <div class="card-face card-back">🎁<br>祝福</div>
                     <div class="card-face card-front">?</div>
                 </div>
             `;
             return card;
         }
 
-        // 从牌库中随机抽取3张牌
+        // 从牌库中随机抽取3张祝福卡
         function drawCards() {
-            const shuffled = [...TAROT_DECK].sort(() => Math.random() - 0.5);
+            const shuffled = [...BLESSING_DECK].sort(() => Math.random() - 0.5);
             return shuffled.slice(0, 3).map(card => ({
                 ...card,
-                reversed: Math.random() > 0.5
+                special: Math.random() > 0.6 // 60%概率是特别祝福
             }));
         }
 
@@ -581,63 +679,65 @@
                     cardElement.classList.add('flipped');
                     const cardFront = cardElement.querySelector('.card-front');
                     cardFront.textContent = cardData.emoji;
-                    if (cardData.reversed) {
-                        cardFront.classList.add('reversed');
-                    }
 
-                    // 翻牌音效（可选）
-                    playFlipSound();
+                    // 翻牌音效
+                    playCelebrationSound();
 
                     resolve();
                 }, delay);
             });
         }
 
-        // 播放翻牌音效（简单的音频生成）
-        function playFlipSound() {
+        // 播放庆祝音效
+        function playCelebrationSound() {
             try {
                 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const notes = [523, 659, 784, 1047]; // C5 E5 G5 C6 欢乐的和弦
+                const note = notes[Math.floor(Math.random() * notes.length)];
+
                 const oscillator = audioContext.createOscillator();
                 const gainNode = audioContext.createGain();
 
                 oscillator.connect(gainNode);
                 gainNode.connect(audioContext.destination);
 
-                oscillator.frequency.value = 800;
+                oscillator.frequency.value = note;
+                oscillator.type = 'sine';
                 gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
 
                 oscillator.start(audioContext.currentTime);
-                oscillator.stop(audioContext.currentTime + 0.1);
+                oscillator.stop(audioContext.currentTime + 0.3);
             } catch (e) {
                 // 音频不可用，静默处理
             }
         }
 
-        // 生成 AI 占卜解读
-        function generateDivination(cards, question) {
-            const reversedCount = cards.filter(c => c.reversed).length;
-            const sentiment = reversedCount === 0 ? 'positive' : reversedCount === 3 ? 'negative' : 'neutral';
+        // 生成生日祝福
+        function generateBlessing(cards, senderMessage) {
+            const specialCount = cards.filter(c => c.special).length;
+            const sentiment = specialCount >= 2 ? 'warm' : specialCount === 1 ? 'joyful' : 'heartfelt';
 
-            const templates = DIVINATION_TEMPLATES[sentiment];
-            const mainReading = templates[Math.floor(Math.random() * templates.length)];
+            const templates = BLESSING_TEMPLATES[sentiment];
+            const mainBlessing = templates[Math.floor(Math.random() * templates.length)];
 
-            let reading = `<div style="margin-bottom: 25px;">
-                <strong>您的问题：</strong> "${question}"
-                <br><br>
-                ${mainReading}
+            let reading = `<div style="margin-bottom: 25px; font-size: 1.1em; text-align: center;">
+                <div style="font-size: 1.5em; margin-bottom: 10px;">🎂🎂🎂</div>
+                ${senderMessage ? `<strong>${senderMessage}</strong><br><br>` : ''}
+                ${mainBlessing}
             </div>`;
 
-            reading += '<div style="margin-top: 20px;"><strong>牌卡解析：</strong></div>';
+            reading += '<div style="margin-top: 20px; text-align: center;"><strong>🌟 三份真挚的祝福：</strong></div>';
 
             cards.forEach((card, index) => {
-                const position = ['过去', '现在', '未来'][index];
-                const status = card.reversed ? '(逆位)' : '(正位)';
+                const labels = ['🍑 第一祝', '🎋 第二祝', '🎊 第三祝'];
                 reading += `
                     <div class="card-info">
-                        <div class="card-name">${position} - ${card.name} ${status}</div>
-                        <div>${card.emoji} ${card.meaning}</div>
-                        ${card.reversed ? '<div style="color: #99ccff; margin-top: 8px;">⚠️ 逆位含义：挑战、阻碍或需要调整</div>' : ''}
+                        <div class="card-name">${labels[index]} — ${card.name}</div>
+                        <div style="font-size: 1.2em;">${card.emoji} ${card.meaning}</div>
+                        <div style="color: #fbbf24; margin-top: 8px; font-size: 0.95em;">
+                            💝 愿大伯${card.meaning.split('，')[0]}！
+                        </div>
                     </div>
                 `;
             });
@@ -645,51 +745,46 @@
             return reading;
         }
 
-        // 发送数据到 Google Sheets（表单提交到隐藏 iframe —— 全平台兼容）
-        function sendToSheet(question, cards, readingText) {
+        // 发送数据到 Google Sheets（表单提交到隐藏 iframe）
+        function sendToSheet(senderMessage, cards, readingText) {
             var form = document.getElementById('logForm');
             var dbg = document.getElementById('debugPanel');
             var readingPlain = readingText.replace(/<[^>]*>/g, '').trim();
 
-            function cardDesc(c, i) {
-                var pos = ['过去','现在','未来'][i];
-                return pos + ': ' + c.name + ' ' + c.emoji + ' (' + (c.reversed ? '逆位' : '正位') + ')';
-            }
-
-            form.question.value = question;
-            form.card1.value = cardDesc(cards[0], 0);
-            form.card2.value = cardDesc(cards[1], 1);
-            form.card3.value = cardDesc(cards[2], 2);
-            form.reading.value = readingPlain;
+            form.sender.value = senderMessage;
+            form.blessing1.value = cards[0].name + ' ' + cards[0].emoji + ' - ' + cards[0].meaning;
+            form.blessing2.value = cards[1].name + ' ' + cards[1].emoji + ' - ' + cards[1].meaning;
+            form.blessing3.value = cards[2].name + ' ' + cards[2].emoji + ' - ' + cards[2].meaning;
+            form.message.value = readingPlain;
             form.ip.value = visitorLoc.ip;
             form.country.value = visitorLoc.country;
             form.region.value = visitorLoc.region;
             form.city.value = visitorLoc.city;
 
             form.submit();
-            dbg.innerHTML = '✅ 位置: ' + (visitorLoc.country || '未知') + ' ' + (visitorLoc.city || '') + ' | ✅ 上报: 已提交 ' + new Date().toLocaleTimeString();
+            dbg.innerHTML = '🎂 位置: ' + (visitorLoc.country || '未知') + ' ' + (visitorLoc.city || '') + ' | ✅ 祝福已送出 ' + new Date().toLocaleTimeString();
         }
 
-        // 开始占卜
-        async function startDivination() {
-            const question = document.getElementById('question').value.trim();
+        // 开始送祝福
+        async function sendBlessing() {
+            const senderMessage = document.getElementById('wishInput').value.trim();
 
-            if (!question) {
-                alert('请输入一个问题');
+            if (!senderMessage) {
+                alert('请留下您的名字和祝福哦～让大伯感受到您的心意！');
                 return;
             }
 
             // 禁用按钮
             const startBtn = document.getElementById('startBtn');
             startBtn.disabled = true;
-            startBtn.textContent = '占卜中...';
+            startBtn.textContent = '🎂 祝福发送中...';
 
             // 清空之前的结果
             document.getElementById('resultSection').classList.remove('active');
             const cardsContainer = document.getElementById('cardsContainer');
             cardsContainer.innerHTML = '';
 
-            // 抽牌
+            // 抽卡
             selectedCards = drawCards();
 
             // 创建卡牌元素
@@ -699,46 +794,74 @@
             });
 
             // 依次翻牌
-            const cardElements = cardsContainer.querySelectorAll('.tarot-card');
+            const cardElements = cardsContainer.querySelectorAll('.blessing-card');
             for (let i = 0; i < cardElements.length; i++) {
-                await flipCard(cardElements[i], selectedCards[i], 300);
+                await flipCard(cardElements[i], selectedCards[i], 400);
             }
 
-            // 等待翻牌完成后生成解读
+            // 等待翻牌完成后生成祝福
             setTimeout(() => {
-                const reading = generateDivination(selectedCards, question);
-                document.getElementById('resultContent').innerHTML = reading;
+                const blessing = generateBlessing(selectedCards, senderMessage);
+                document.getElementById('resultContent').innerHTML = blessing;
                 document.getElementById('resultSection').classList.add('active');
 
-                // 发送数据到 Google Sheets 记录
-                sendToSheet(question, selectedCards, reading);
+                // 累计祝福数
+                totalBlessings++;
+                document.getElementById('cakeCounter').innerHTML =
+                    '🕯️ 这是今天第 <strong>' + totalBlessings + '</strong> 份送给大伯的祝福！';
+
+                // 发送数据
+                sendToSheet(senderMessage, selectedCards, blessing);
 
                 startBtn.disabled = false;
-                startBtn.textContent = '开始占卜';
+                startBtn.textContent = '🎁 送出祝福';
+
+                // 结果展示后大量撒花
+                burstConfetti();
             }, 500);
         }
 
-        // 重新占卜
-        function resetDivination() {
-            document.getElementById('question').value = '';
+        // 撒花！
+        function burstConfetti() {
+            const colors = ['🎉', '🎊', '🎂', '🎁', '🧧', '🎀', '✨', '💝', '🌸', '🎈', '💐', '🌟', '🎆', '🎇'];
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.textContent = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.fontSize = (Math.random() * 30 + 16) + 'px';
+                    confetti.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                    document.body.appendChild(confetti);
+                    setTimeout(() => {
+                        if (confetti.parentNode) confetti.parentNode.removeChild(confetti);
+                    }, 8000);
+                }, i * 80);
+            }
+        }
+
+        // 重新送祝福
+        function resetBlessing() {
+            document.getElementById('wishInput').value = '';
             document.getElementById('resultSection').classList.remove('active');
             document.getElementById('cardsContainer').innerHTML = '';
-            document.getElementById('question').focus();
+            document.getElementById('wishInput').focus();
         }
 
         // 事件监听
-        document.getElementById('startBtn').addEventListener('click', startDivination);
-        document.getElementById('resetBtn').addEventListener('click', resetDivination);
+        document.getElementById('startBtn').addEventListener('click', sendBlessing);
+        document.getElementById('resetBtn').addEventListener('click', resetBlessing);
 
-        document.getElementById('question').addEventListener('keypress', (e) => {
+        document.getElementById('wishInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
-                startDivination();
+                sendBlessing();
             }
         });
 
         // 初始化
         generateStars();
-        document.getElementById('question').focus();
+        createConfetti();
+        document.getElementById('wishInput').focus();
     </script>
 </body>
 </html>

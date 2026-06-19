@@ -1,0 +1,30 @@
+{
+  "greeting": "亲爱的",
+  "name": "大伯",
+  "greetingText": "在这个特别的日子里，我们全家人向您致以最诚挚的祝福",
+  "wishText": "愿您福如东海长流水，寿比南山不老松！岁岁平安，年年顺遂！",
+  "imagePath": "img/dabo.svg",
+  "text1": "今天是您的生日啊!!! :D",
+  "textInChatBox": "大伯生日快乐！祝您身体健康，万事如意，笑口常开，幸福每一天！🎂🎉",
+  "sendButtonLabel": "发送",
+  "text2": "我们想给您一个惊喜",
+  "text3": "我们认真的想了很久",
+  "text4": "我们想做一些",
+  "text4Adjective": "特别的",
+  "text5Entry": "因为，",
+  "text5Content": "您是我们最敬爱的大伯",
+  "smiley": "❤️",
+  "bigTextPart1": "祝",
+  "bigTextPart2": "福",
+  "wishHeading": "生日快乐！",
+  "outroText": "希望您喜欢这个小小的惊喜！我们永远爱您！",
+  "replayText": "如果您喜欢的话，可以再看一次哦！",
+  "outroSmiley": "🎂",
+  "music": "./music/bgMusic.mp3",
+  "fonts": [
+    {
+      "name": "Ma Shan Zheng",
+      "path": "https://fonts.googleapis.com/css?family=Ma+Shan+Zheng&display=swap"
+    }
+  ]
+}
